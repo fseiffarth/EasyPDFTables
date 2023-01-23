@@ -10,15 +10,15 @@ def main():
     pdf = EasyPDFTables(margins, font)
 
     # Make some lines
-    pdf.make_line(0.0, pdf.t_margin, "Easy PDF Tables", 'C', 'B', 20)
-    pdf.make_line(0.0, pdf.y_step(8.0), "an example for easily generating nice pdf tables with python. You only need the package fpdf", 'C', 'I', 15)
-    pdf.make_line(0.0, pdf.y_step(8.0), text="Here we start with some examples", font_size=12)
-    pdf.make_line(0.0, pdf.y_step(5.0), text="You can write a really long line of text with this function and then suddenly there will be a line break if the line is too long for your file")
+    pdf.make_line(0.0, pdf.t_margin, text="Easy PDF Tables", align='C', font_style='B', font_size=20)
+    pdf.make_line(0.0, pdf.y_step(8.0), text="an example for easily generating nice pdf tables with python. You only "
+                                             "need the package fpdf", align='C', font_style='I', font_size=15)
+    pdf.make_line(0.0, pdf.y_step(8.0), text="Here we start with some examples:", font_size=12)
 
     # A table where all borders are included
     data = [['This', 'sentence', 'can', 'be', 'replaced', 'by', 'your', 'data', '.'],
             ['And', 'more', 'and', 'more', 'and', 'more', 'and', 'more', 'data']]
-    pdf.make_table(0.0, pdf.y_step(5.0), data, border_type='all', title='Table with a bold title and all borders',
+    pdf.make_table(data=data, border_type='all', title='Table with a bold title and all borders',
                    title_size=10, title_style='B', font_size=8)
 
     # A box table

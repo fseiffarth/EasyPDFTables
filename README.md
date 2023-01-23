@@ -1,8 +1,12 @@
 # EasyPDFTables
-Generating nice pdf files with tables using python and the fpdf package (very easy customizable tables and cell border, automatic table break, etc.)
+*Create your own [pdf files](Example.pdf) (with text and **tables**) using python and the fpdf package:*
 
-There are two main functions:
+* automatic line and table break
+* automatic positioning of tables and text in the pdf (also custom positioning is possible)
+* tables are very easy customizable (cell widths, cell borders, font size, font style)
 
-**make_line(...)** generates some single row "table" consisting only of text
+There are only two main functions:
 
-**make_table(...)** geneates some table using the given parameters
+* **make_line(...)** generates some *single row table* consisting only of text
+
+* **make_table(...)** generates some table using the given parameters

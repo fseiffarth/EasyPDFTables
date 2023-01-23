@@ -14,7 +14,7 @@ def get_border(i, j, rows, cols, border_type: str = None):
             else:
                 border += 'R'
         elif border_type == 'horizontal':
-            if j == 0:
+            if i == 0:
                 border += 'TB'
             else:
                 border += 'B'
@@ -106,7 +106,7 @@ class EasyPDFTables(FPDF):
             y = self.y_coord[-1]
         return self.make_table(x=x, y=y, data=[[text]], align=align, font_style=font_style, font_size=font_size)
 
-    def make_table(self, x: float, y: float, data: List[List[str]], border_type=None, align=None, col_widths=None,
+    def make_table(self, x: float = 0.0, y: float = None, data: List[List[str]] = [[]], border_type=None, align=None, col_widths=None,
                    font_style=None,
                    font_size=None,
                    cell_borders=None, title=None, title_size=None, title_style=None, line_height=None,
@@ -132,7 +132,8 @@ class EasyPDFTables(FPDF):
         :param only_height: if true compute only height of the box without printing
         :return: list of bottom y positions of the individual rows
         """
-
+        if y is None:
+            y = self.y_coord[-1]
         if title is not None:
             y += 8.0
         row_y_positions = []
