@@ -46,10 +46,8 @@ def main():
     # Customized table
     data = [['This', 'sentence', 'can', 'be', 'replaced', 'by', 'your', 'data', '.'],
             ['And', 'more', 'and', 'more', 'and', 'more', 'and', 'more', 'data']]
-    align = [['R', 'C', 'L', 'C', 'L', 'C', 'L', 'C', 'R'],
-             ['R', 'C', 'L', 'C', 'L', 'C', 'L', 'C', 'R']]
-    font_style = [['B', 'I', '', '', 'B', 'I', '', 'I', 'B'],
-                  ['B', 'I', '', '', 'B', 'I', '', 'I', 'B']]
+    align = ['R', 'C', 'L', 'C', 'L', 'C', 'L', 'C', 'R']
+    font_style = ['B', 'I', '', '', 'B', 'I', '', 'I', 'B']
     font_size = [[8, 10, 8, 4, 6, 8, 6, 9, 8],
                  [8, 6, 8, 4, 8, 3, 6, 10, 6]]
     cell_borders = [['', 'LBR', 'T', 'B', '', 'RL', '', '', 'TR'], ['', 'LBR', 'T', 'B', '', 'RL', '', '', 'TR']]

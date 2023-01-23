@@ -43,6 +43,7 @@ def check_table_parameter(parameter: object, name: str, rows: int, cols: int) ->
         else:
             param_cols = len(parameter)
         if param_rows > 1:
+            input_type = "array"
             if param_rows != rows:
                 raise IndexError(
                     f'{name} has {param_rows} rows but should have {rows} rows!')
@@ -90,7 +91,8 @@ class EasyPDFTables(FPDF):
         """
         return self.__y__() + y
 
-    def make_line(self, x: float = 0.0, y: float = None, text: str = "", align='L', font_style=None, font_size=None) -> List[
+    def make_line(self, x: float = 0.0, y: float = None, text: str = "", align='L', font_style=None, font_size=None) -> \
+    List[
         float]:
         """
         Function for writing text in a pdf file
@@ -106,7 +108,8 @@ class EasyPDFTables(FPDF):
             y = self.y_coord[-1]
         return self.make_table(x=x, y=y, data=[[text]], align=align, font_style=font_style, font_size=font_size)
 
-    def make_table(self, x: float = 0.0, y: float = None, data: List[List[str]] = [[]], border_type=None, align=None, col_widths=None,
+    def make_table(self, x: float = 0.0, y: float = None, data: List[List[str]] = [[]], border_type=None, align=None,
+                   col_widths=None,
                    font_style=None,
                    font_size=None,
                    cell_borders=None, title=None, title_size=None, title_style=None, line_height=None,
@@ -153,9 +156,9 @@ class EasyPDFTables(FPDF):
                         f'Row 0 and row {i} in the table do not have the same number of columns, please fix this!')
         align_type = check_table_parameter(align, "align", rows, cols)
         width_type = check_table_parameter(col_widths, "col_widths", rows, cols)
-        font_style_type = check_table_parameter(col_widths, "font_style", rows, cols)
-        font_size_type = check_table_parameter(col_widths, "font_size", rows, cols)
-        cell_border_type = check_table_parameter(col_widths, "cell_borders", rows, cols)
+        font_style_type = check_table_parameter(font_style, "font_style", rows, cols)
+        font_size_type = check_table_parameter(font_size, "font_size", rows, cols)
+        cell_border_type = check_table_parameter(cell_borders, "cell_borders", rows, cols)
 
         sum = 0
         if type(col_widths) == list:
@@ -216,18 +219,24 @@ class EasyPDFTables(FPDF):
         for row_num, row in enumerate(data):
             line_splits.append(1)
             for col_num, text in enumerate(row):
+
+                # Font size
                 f_size = self.font_size_pt
-                if type(font_size) == int:
+                if font_size_type == "string":
                     f_size = font_size
-                if type(font_size) == list:
+                elif font_size_type == "list":
+                    f_size = font_size[col_num]
+                elif font_size_type == "array":
                     f_size = font_size[row_num][col_num]
 
-                # set font
+                # Font style
                 if font_style is None:
                     self.set_font(self.font_family, '', f_size)
-                elif type(font_style) == str:
+                elif font_style_type == "string":
                     self.set_font(self.font_family, font_style, f_size)
-                elif type(font_style) == list:
+                elif font_style_type == "list":
+                    self.set_font(self.font_family, font_style[col_num], f_size)
+                elif font_style_type == "array":
                     self.set_font(self.font_family, font_style[row_num][col_num], f_size)
 
                 out = len(self.multi_cell(col_widths[col_num], split_line_height, txt=text, split_only=True))
@@ -258,37 +267,56 @@ class EasyPDFTables(FPDF):
             x_val = x + self.l_margin
             for col_num, text in enumerate(row):
                 self.set_xy(x_val, y_val)
+
+                # Border of the table
                 border = ''
-                if type(border_type) == str:
+                if border_type is None:
                     border = get_border(row_num, col_num, len(data), len(row), border_type)
-                if type(border_type) == list:
+                elif cell_border_type == "string":
+                    border = get_border(row_num, col_num, len(data), len(row), border_type)
+                elif cell_border_type == "list":
+                    for b_type in border_type:
+                        border += get_border(0, col_num, len(data), len(row), b_type)
+                elif cell_border_type == "array":
                     for b_type in border_type:
                         border += get_border(row_num, col_num, len(data), len(row), b_type)
+
+                # Alignment of the text
                 alignment = 'J'
                 if align is None:
                     pass
                 else:
-                    if type(align) == str:
+                    if align_type == "string":
                         alignment = align
-                    if type(align) == list:
+                    elif align_type == "list":
+                        alignment = align[col_num]
+                    elif align_type == "array":
                         alignment = align[row_num][col_num]
 
+                # Font size
                 f_size = self.font_size_pt
-                if type(font_size) == int:
+                if font_size_type == "string":
                     f_size = font_size
-                if type(font_size) == list:
+                elif font_size_type == "list":
+                    f_size = font_size[col_num]
+                elif font_size_type == "array":
                     f_size = font_size[row_num][col_num]
 
-                # set font
+                # Font style
                 if font_style is None:
                     self.set_font(self.font_family, '', f_size)
-                elif type(font_style) == str:
+                elif font_style_type == "string":
                     self.set_font(self.font_family, font_style, f_size)
-                elif type(font_style) == list:
+                elif font_style_type == "list":
+                    self.set_font(self.font_family, font_style[col_num], f_size)
+                elif font_style_type == "array":
                     self.set_font(self.font_family, font_style[row_num][col_num], f_size)
 
-                if type(cell_borders) == list:
+                if cell_border_type == "list":
+                    border += cell_borders[col_num]
+                if cell_border_type == "array":
                     border += cell_borders[row_num][col_num]
+
                 splits = len(self.multi_cell(col_widths[col_num], split_line_height, txt=text, split_only=True))
                 missing_cells = line_splits[row_num] - splits
                 if missing_cells > 0:
