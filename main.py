@@ -50,7 +50,7 @@ def main():
     font_style = ['B', 'I', '', '', 'B', 'I', '', 'I', 'B']
     font_size = [[8, 10, 8, 4, 6, 8, 6, 9, 8],
                  [8, 6, 8, 4, 8, 3, 6, 10, 6]]
-    cell_borders = [['', 'LBR', 'T', 'B', '', 'RL', '', '', 'TR'], ['', 'LBR', 'T', 'B', '', 'RL', '', '', 'TR']]
+    cell_borders = [['', 'LBR', 'T', 'B', '', 'RL', '', '', 'TR'], ['T', '', 'B', '', 'R', 'L', '', '', 'BL']]
     pdf.make_table(0.0, pdf.y_step(10), data, align=align,
                    title='Or make a fully customized table with different borders, alignments, font styles and font sizes',
                    title_size=10, title_style='B', font_size=font_size, font_style=font_style,
