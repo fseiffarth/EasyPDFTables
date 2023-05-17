@@ -13,5 +13,6 @@ There are only two main functions:
 
 **See the [main.py](main.py) for a simple example.**
 
-## Usage
+## Usages
 * Generate nice pdfs from excel files using python
+* Present some entries from a database using python
