@@ -13,5 +13,5 @@ There are only two main functions:
 
 **See the [main.py](main.py) for a simple example.**
 
-##Usage
+## Usage
 * Generate nice pdfs from excel files using python
