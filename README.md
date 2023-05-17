@@ -10,3 +10,5 @@ There are only two main functions:
 * **make_line(...)** generates some *single row table* consisting only of text
 
 * **make_table(...)** generates some table using the given parameters
+
+**See the [main.py](main.py) for a simple example.**
