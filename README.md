@@ -15,8 +15,9 @@ There are only two main functions:
 
 ## Install
 
-* Clone this repository ```git clone ```
+* Clone this repository ```git clone git@github.com:fseiffarth/EasyPDFTables.git```
 
 ## Usages
-* Generate nice pdfs from excel files using python
+* Generate nice pdfs from Excel files using python
 * Present some entries from a database using python
+* Create custom forms that include some data which can be easily accessed using python
