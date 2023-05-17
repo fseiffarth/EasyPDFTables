@@ -13,6 +13,10 @@ There are only two main functions:
 
 **See the [main.py](main.py) for a simple example with [this output](Example.pdf)**
 
+## Install
+
+* Clone this repository ```git clone ```
+
 ## Usages
 * Generate nice pdfs from excel files using python
 * Present some entries from a database using python
