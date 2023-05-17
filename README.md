@@ -12,3 +12,6 @@ There are only two main functions:
 * **make_table(...)** generates some table using the given parameters
 
 **See the [main.py](main.py) for a simple example.**
+
+##Usage
+* Generate nice pdfs from excel files using python
